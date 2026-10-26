@@ -1,7 +1,6 @@
 package src
 
 import (
-	"fmt"
 	"strconv"
 	"strings"
 )
@@ -39,7 +38,6 @@ func Bin(t []string, n int) {
 			}
 		}
 		bin := strconv.FormatInt(int64(nbr), 2)
-		fmt.Println(bin)
 		t[i] = bin
 	}
 }
@@ -54,7 +52,6 @@ func Hex(t []string, n int) {
 			}
 		}
 		hex := strconv.FormatInt(int64(nbr), 16)
-		fmt.Println(hex)
 		t[i] = hex
 	}
 }

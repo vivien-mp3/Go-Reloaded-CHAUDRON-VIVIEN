@@ -6,7 +6,7 @@ Bonne chance
 */
 //import "fmt"
 
-var aspos bool
+//var aspos bool
 
 func CutText(t string) []string {
 
@@ -43,8 +43,6 @@ func CutText(t string) []string {
 			if r == 40 {
 				i = GetAction(t, result, i)
 				continue
-			} else if r == 39 {
-				aspos = true
 			}
 
 			if t[i] > 0 && IsSpace(rune(t[prev])) {
@@ -52,6 +50,9 @@ func CutText(t string) []string {
 			}
 			str += string(r)
 
+		} else if isApos(r) {
+			str += string(r)
+			result, str = strAppend(str)
 		} else {
 			result, str = strAppend(str)
 		}
@@ -98,32 +99,13 @@ var result2 []string
 
 func strAppend(str string) ([]string, string) {
 	if str != "" {
-		if aspos && str[len(str)-1] != 39 {
+		/* if aspos && (str[len(str)-1] != 39 || str[len(str)-1] != 42) {
 			str += "'"
 			aspos = false
-		}
+		} */
+
 		result2 = append(result2, str)
 	}
 	str = ""
 	return result2, str
-}
-
-func IsLetter(r rune) bool {
-	return ((r >= 65 && r <= 90) || (r >= 97 && r <= 122))
-}
-
-func IsNumber(r rune) bool {
-	return (r >= 48 && r <= 57)
-}
-
-func IsSymbol(r rune) bool {
-	return ((r >= 33 && r <= 47) || (r >= 58 && r <= 64))
-}
-
-func IsSpace(r rune) bool {
-	return r == 32
-}
-
-func IsEndOfSentence(r rune) bool {
-	return r == '.' || r == '!' || r == '?'
 }
