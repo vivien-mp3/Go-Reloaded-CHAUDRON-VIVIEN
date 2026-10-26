@@ -12,13 +12,10 @@ func main() {
 	dat, _ := os.ReadFile(os.Args[1])
 	fmt.Println(string(dat))
 
-	correctedText := src.CutText(string(dat))
-	//fmt.Println(src.GlueText(correctedText))
-	newData := []byte(src.GlueText(correctedText))
+	cuttedText := src.CutText(string(dat))
+	newData := []byte(src.GlueText(cuttedText))
 	
-	if _, err := os.Stat("result.txt"); !os.IsNotExist(err) {
-		os.Remove("result.txt")
-	}
+	
 
 	resultFile := "result.txt"
 	if len(os.Args) >= 3 {
@@ -26,6 +23,14 @@ func main() {
 		if len(os.Args[2]) >= 3 && os.Args[2][len(os.Args[2])-4:] != ".txt" {
 			resultFile += ".txt"
 		}
+	}
+
+	if resultFile == os.Args[1] {
+		fmt.Printf("%v: Les deux arguments partagent le même noms. Veuillez différencier les noms.", src.ErrSameName)
+	}
+
+	if _, err := os.Stat(resultFile); !os.IsNotExist(err) {
+		os.Remove(resultFile)
 	}
 
 	var perm os.FileMode

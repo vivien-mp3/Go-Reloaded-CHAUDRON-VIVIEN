@@ -1,13 +1,10 @@
 package src
 
-import "fmt"
-
 func GlueText(t []string) string {
 	result := ""
 
 	for i := 0; i < len(t)-1; i++ {
-		
-		fmt.Println(t[i])
+	
 
 		if t[i] == "a" || t[i] == "A" {
 			if isAn(rune(t[i+1][0])) {
@@ -36,5 +33,9 @@ func GlueText(t []string) string {
 		
 	}
 	result += t[len(t)-1]
+
+	if !IsEndOfSentence(rune(result[len(result)-1])) {
+		result += "."
+	}
 	return result
 }
